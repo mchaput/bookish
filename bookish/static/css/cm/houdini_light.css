@@ -1,0 +1,29 @@
+/* Generic modes */
+span.cm-keyword { color: #009; }
+span.cm-atom { color: #3b5bb5; }
+span.cm-number { color: #800; }
+span.cm-def { color: #00A000; }
+span.cm-variable-2, span.cm-variable-3 { color: #5c78a3; }
+span.cm-variable { color: #000; }
+span.cm-property { color: #2d4001; }
+span.cm-operator { color: #060; }
+span.cm-comment { color: #8c868f; }
+span.cm-string { color: #f90; }
+span.cm-meta { color: #555; }
+span.cm-error { color: #f30; }
+span.cm-qualifier { color: #555; }
+span.cm-builtin { color: #30a; }
+span.cm-bracket { color: #5e7e6b; }
+span.cm-tag { color: #039; }
+span.cm-attribute { color: #f30; }
+span.cm-hr { color: #966; }
+
+/* Bookish mode */
+span.cm-marker { color: #006f1b; }
+span.cm-value { color: #699; }
+span.cm-header { font-weight: bold; color: #734cff; }
+span.cm-header-1 { color: #f30; font-size: 1.5em;}
+span.cm-header-2 { font-size: 1.3em;}
+span.cm-header-3 { font-size: 1.1em;}
+span.cm-ui { font-weight: bold; color: #600; }
+span.cm-section { color: #f60; font-style: italic; }

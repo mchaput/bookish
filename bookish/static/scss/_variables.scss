@@ -1,0 +1,151 @@
+// Text
+
+$bg-color: white;
+$text-color: black;
+
+$inv-bg-color: #1c1c1c;
+$inv-text-color: #aaa;
+
+$medium-color: #666;
+$inv-medium-color: #999;
+
+// Metrics
+
+$header-height: 32px;
+$large-radius: 8px;
+$small-radius: 4px;
+
+$left-rail-width: 10rem;
+
+$bubble-arrow-width: 12px;
+$small-arrow-width: 6px;
+
+// Theme colors
+
+$main-color: #f90;
+$accent-color: rgb(66, 160, 164);
+
+$title-color: $main-color;
+$section-color: $main-color;
+$heading-color: $accent-color;
+
+$link-color: rgb(23, 130, 186);
+$link-visited-color: adjust-color($link-color, $saturation: -20%);
+$link-hover-color: adjust-color($link-color, $lightness: 10%);
+
+$tag-bg: #e0e0e0;
+$tag-fg: #666;
+$inv-tag-bg: #333;
+$inv-tag-fg: #999;
+
+$label-bg: #e8e8e8;
+$content-bg: #f0f0f0;
+
+$pre-bg: #f4f4f4;
+$inv-pre-bg: black;
+
+$inv-label-bg: #242424;
+$inv-content-bg: #292929;
+
+$table-border-color: #eee;
+$table-head-color: adjust-color($accent-color, $lightness: 45%, $saturation: -20%);
+$inv-table-border-color: #333;
+$inv-table-head-color: rgba(255, 255, 255, 0.05);
+
+// Tabs
+
+$tab-bg: transparent;
+$tab-fg: $link-color;
+$tab-selected-bg: $tag-bg;
+$tab-selected-fg: $text-color;
+
+$inv-tab-bg: transparent;
+$inv-tab-fg: $link-color;
+$inv-selected-tab-bg: $inv-tag-bg;
+$inv-selected-tab-fg: $inv-text-color;
+
+// Base colors
+
+$blue: hsl(209, 100%, 50%);
+$pink: hsl(340, 100%, 78%);
+$red: hsl(12, 100%, 50%);
+$green: hsl(89, 100%, 40%);
+$yellow: hsl(48, 100%, 50%);
+$purple: hsl(267, 100%, 65%);
+$magenta: hsl(318, 100%, 50%);
+$teal: hsl(192, 100%, 50%);
+$orange: hsl(36, 100%, 50%);
+$seafoam: hsl(154, 100%, 50%);
+
+$colorvariants: (
+    "gray": (
+        light: #f0f0f0,
+        bright: #f8f8f8,
+        dark: #333,
+    ),
+    "blue": (
+        bright: $blue,
+        light: adjust_color($blue, $saturation: -10%, $lightness: 40%),
+        dark: adjust-color($blue, $saturation: -40%, $lightness: -35%),
+    ),
+    "pink": (
+        bright: $pink,
+        light: adjust_color($pink, $saturation: -20%, $lightness: 17%),
+        dark: adjust-color($pink, $saturation: -50%, $lightness: -55%),
+    ),
+    "red": (
+        bright: $red,
+        light: adjust-color($red, $saturation: -5%, $lightness: 40%),
+        dark: adjust-color($red, $saturation: -40%, $lightness: -35%),
+    ),
+    "green": (
+        bright: $green,
+        light: adjust-color($green, $saturation: -20%, $lightness: 45%),
+        dark: adjust-color($green, $saturation: -30%, $lightness: -30%),
+    ),
+    "yellow": (
+        bright: $yellow,
+        light: adjust-color($yellow, $saturation: 100%, $lightness: 42%),
+        dark: adjust-color($yellow, $saturation: -40%, $lightness: -40%),
+    ),
+    "purple": (
+        bright: $purple,
+        light: adjust_color($purple, $saturation: -20%, $lightness: 30%),
+        dark: adjust-color($purple, $saturation: -50%, $lightness: -42%),
+    ),
+    "magenta": (
+        bright: $magenta,
+        light: adjust_color($magenta, $saturation: -10%, $lightness: 40%),
+        dark: adjust-color($magenta, $saturation: -40%, $lightness: -35%),
+    ),
+    "teal": (
+        bright: $teal,
+        light: adjust_color($teal, $saturation: -20%, $lightness: 40%),
+        dark: adjust-color($teal, $saturation: -25%, $lightness: -37%),
+    ),
+    "orange": (
+        bright: $orange,
+        light: adjust-color($orange, $saturation: -20%, $lightness: 40%),
+        dark: adjust-color($orange, $saturation: -20%, $lightness: -37%),
+    ),
+    "seafoam": (
+        bright: $seafoam,
+        light: adjust-color($seafoam, $saturation: -20%, $lightness: 40%),
+        dark: adjust-color($seafoam, $saturation: -25%, $lightness: -37%),
+    ),
+    "white": (
+        bright: #fff,
+        light: #fff,
+        dark: #282828,
+    ),
+);
+
+@function palette($name, $tone: 'base') {
+    @return map-get(map-get($colorvariants, $name), $tone);
+}
+
+$border-gray: rgba(0, 0, 0, 0.3);
+$border-light-gray: rgba(0, 0, 0, 0.1);
+$inv-border-gray: rgba(255, 255, 255, 0.3);
+$inv-border-light-gray: rgba(255, 255, 255, 0.1);
+

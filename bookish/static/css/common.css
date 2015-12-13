@@ -1,0 +1,156 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 14px;
+}
+body, form, input {
+    font-family: "Open Sans", sans-serif;
+}
+body {
+    line-height: 1.5em;
+    margin: 0; padding: 0;
+}
+
+
+/* Navbar */
+
+header {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 32px;
+    overflow: hidden;
+    background-color: rgba(0,0,0,0.97);
+    color: #ccc;
+    z-index: 30;
+}
+
+nav > .left {
+    float: left;
+}
+nav > .right {
+    float: right;
+}
+
+a.brand {
+    width: 32px; height: 32px;
+    margin: 0; padding: 0;
+}
+a.brand img {
+    vertical-align: middle;
+    width: 32px; height: 32px;
+    margin: 0; padding: 0;
+}
+
+nav .navitem, nav .navbutton {
+    display: inline-block;
+    position: relative; top: 0;
+}
+
+nav .navitem, nav .navbutton {
+    margin: 0 0.5em; padding: 0;
+}
+.navitem:first-child, nav .navbutton:first-child {
+    margin-left: 0;
+}
+.navitem:last-child, nav .navbutton:first-child {
+    margin-right: 0;
+}
+
+nav .navbutton {
+    min-height: 32px;
+    background-color: transparent;
+    border: none;
+    font: normal normal normal 14px/1 FontAwesome;
+    cursor: pointer;
+    margin: 0 0.25em; padding: 0;
+}
+nav .navbutton, nav .navbutton:visited {
+    color: #999;
+}
+nav .navbutton:hover {
+    background-color: transparent;
+    color: white;
+    text-decoration: none;
+}
+
+nav a.navbutton {
+    top: 0; padding-top: 8px;
+}
+
+#q {
+    width: 20em;
+}
+
+header .logo {
+    float: left;
+}
+header .logo img {
+    width: 2.286em; height: 2.286em;
+}
+header > h1 {
+    float: left;
+    margin: 0.25em 0 0 0.5em; padding: 0;
+    font-size: 1.5em;
+    color: white;
+}
+header > h1 > small {
+    font-weight: 300;
+    border-left: 1px solid #999;
+    margin-left: 0.5em; padding-left: 0.5em;
+}
+
+#sidebar {
+    position: fixed;
+    z-index: 29;
+    top: 32px;
+    left: 0;
+    width: 320px;
+    height: calc(100% - 32px);
+    background-color: rgba(255, 255, 255, 0.95);
+}
+#sidebar.closed {
+    visibility: hidden;
+}
+#sidebar.closed #sidebar-content {
+}
+
+#sidebar-content {
+    height: 100%;
+    overflow: auto;
+}
+#sidebar-content::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+#sidebar-content::-webkit-scrollbar-track {
+    background-color: transparent;
+    border: none;
+}
+#sidebar-content::-webkit-scrollbar-thumb {
+    border-radius: 6px;
+    background-color: #ccc;
+}
+#toc {
+}
+
+#split-bar {
+    background-color: #f8f8f8;
+    border-left: 1px solid #ccc;
+    float: right;
+    width: 6px;
+    height: 100vh;
+    cursor: col-resize;
+}
+#sidebar-buttons {
+}
+
+
+#main {
+    position: relative;
+    padding-bottom: 25vh;
+}
+
+#main.under {
+    padding-top: 48px;
+}

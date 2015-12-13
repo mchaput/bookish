@@ -1,0 +1,15 @@
+{% extends "/templates/page_base.jinja2" %}
+
+{% block title %}Preview of {{ path }}{% endblock %}
+
+{% block bodyclass -%}
+    {{ docroot.attrs.display if docroot.attrs }}
+{%- endblock %}
+
+{% block body %}
+    <div id="main" class="preview">
+        <div id="content" class="sizing">
+{{ render_styles(docroot) }}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "/templates/base.jinja2" %}
+
+{% block title %}
+    Search for {{ qstring | escape }}
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ rel("/static/css/page.css") }}">
+{% endblock %}
+
+{% block body %}
+    <form action="/_search">
+        <label for="q">Find</label>
+        <input name="q" id="q" value="{{ qstring | escape }}" />
+    </form>
+
+    <h1>Search for {{ qstring | escape }}</h1>
+
+    <div class="pointy">
+    This is a pointy box!
+    </div>
+
+    <p class="search-results-info">{{ hits.scored_length() }} hits</p>
+    <p class="search-results-query"><code>{{ qstring | escape }}</code></p>
+
+    <div id="results" class="search-results">
+        <ol class="search-results-list">
+            {% for hit in hits %}
+                <li>
+                <a href="{{ hit.path | escape }}">{{ hit.title | escape }}</a>
+                {{ hit.type }}
+                </li>
+            {% endfor %}
+        </ol>
+    </div>
+{% endblock %}

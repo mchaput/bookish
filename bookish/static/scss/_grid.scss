@@ -1,0 +1,80 @@
+// Grouping
+
+.row {
+    display: block;
+    margin: 0 -0.5em;
+}
+.col {
+    display: inline-block;
+    vertical-align: top;
+    padding: 0 0.5em;
+}
+
+.xsmall {
+    .col {
+        width: 100%;
+    }
+}
+
+@for $colcount from 2 through 12 {
+    /* #{$colcount} column grid */
+
+    @for $colspan from 1 through $colcount {
+        .col_#{$colspan}_of_#{$colcount} {
+            width: $colspan * (100% / $colcount);
+        }
+    }
+}
+
+//@import '_flexbox';
+//
+//.row {
+//    @include flexbox;
+//    @include flex-wrap(wrap);
+//    @include flex-direction(row);
+//    @include justify-content(space-between);
+//    @include align-items(stretch);
+//    margin: 0 -0.5em;
+//}
+//
+//.column {
+//    padding: 0 0.5em;
+//}
+//
+//.row > .column {
+//    @include flex(0 0 100%);
+//}
+//.xsmall {
+//}
+//.small {
+//    .row > .column {
+//        @include flex(0 0 100%);
+//    }
+//}
+//.medium {
+//    .col2 > .column, .col3 > .column, .col4 > .column {
+//        @include flex(0 0 50%);
+//    }
+//}
+//.large {
+//    .col2 > .column {
+//        @include flex(0 0 50%);
+//    }
+//    .col3 > .column {
+//        @include flex(0 0 33%);
+//    }
+//    .col4 > .column {
+//        @include flex(0 0 25%);
+//    }
+//}
+//.xlarge {
+//    .col2 > .column {
+//        @include flex(0 0 50%);
+//    }
+//    .col3 > .column {
+//        @include flex(0 0 33%);
+//    }
+//    .col4 > .column {
+//        @include flex(0 0 25%);
+//    }
+//}

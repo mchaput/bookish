@@ -1,0 +1,43 @@
+{% extends "/templates/structure.jinja2" %}
+
+{% block styles %}
+    {{ super() }}
+    <link rel="stylesheet" href="/static/css/codemirror.css">
+    <link rel="stylesheet" href="/static/css/cm/houdini_light.css">
+    <link rel="stylesheet" href="/static/js/addon/dialog/dialog.css">
+    <link rel="stylesheet" href="/static/css/edit.css">
+{% endblock %}
+
+{% block title %}Editing {{ path }}{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="/static/js/codemirror.js"></script>
+    <script src="/static/js/addon/dialog/dialog.js"></script>
+    <script src="/static/js/addon/search/searchcursor.js"></script>
+    <script src="/static/js/addon/search/search.js"></script>
+    <script src="/static/js/mode/bookish/bookish.js"></script>
+    <script src="/static/js/mode/python/python.js"></script>
+    <script src="/static/js/mode/xml/xml.js"></script>
+    <script src="/static/js/mode/javascript/javascript.js"></script>
+    <script src="/static/js/edit.js"></script>
+{% endblock %}
+
+{% block leftbar %}
+    <span class="navitem">
+        <input name="editpath" id="editpath" value="{{ path | escape }}">
+    </span>
+    <a href="#" class="navbutton fa fa-undo"></a>
+    <a href="#" class="navbutton fa fa-ban"></a>
+    <a href="#" class="navbutton fa fa-archive"></a>
+    <a href="#" class="navbutton fa fa-check"></a>
+{% endblock %}
+
+{% block content %}
+    <div id="editpane">
+        <textarea id="source" name="source" autofocus="autofocus">{{ source }}</textarea>
+    </div>
+    <div id="previewpane">
+        <iframe id="preview"></iframe>
+    </div>
+{% endblock %}

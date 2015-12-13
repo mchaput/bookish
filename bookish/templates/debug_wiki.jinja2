@@ -1,0 +1,69 @@
+<html>
+    <head>
+        <title>Structure: {{ path }}</title>
+        <style>
+            body {
+                color: black;
+                background-color: white;
+                font-family: sans-serif;
+            }
+            .block {
+                background-color: #F8F8F8;
+                padding: 4px;
+                border: 1px solid #999;
+            }
+            .type {
+                font-weight: bold;
+            }
+            .kv {
+                font-size: small;
+                color: #666;
+            }
+            .key {
+                font-weight: bold;
+            }
+            .text {
+                font-family: monospace;
+            }
+        </style>
+    </head>
+<body>
+
+{% macro list_items(items) %}
+    <ol>
+        {% for b in items %}
+            <li>{{ print(b) }}</li>
+        {% endfor %}
+    </ol>
+{% endmacro %}
+
+{% macro print(block) %}
+    <div class="block">
+    <p>
+        <span class="type">{{ block.type }}</span>
+        <span class="attrs">
+            {% for key in block.keys() | sort %}
+                {% if key not in ('body', 'text', 'type', 'thead', 'tfoot') %}
+                    <span class="kv">
+                        <span class="key">{{ key }}</span>=<span class="value">{{ block[key] | escape }}</span>
+                    </span>
+                {% endif %}
+            {% endfor %}
+        </span>
+    </p>
+    <p class="text">{{ block.text }}</p>
+    {% if block.thead %}
+        {{ list_items(block.thead) }}
+    {% endif %}
+    {% if block.body %}
+        {{ list_items(block.body) }}
+    {% endif %}
+    {% if block.tfoot %}
+        {{ list_items(block.thead) }}
+    {% endif %}
+    </div>
+{% endmacro %}
+
+{{ print(root) }}
+</body>
+</html>

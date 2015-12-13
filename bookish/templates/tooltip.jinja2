@@ -1,0 +1,80 @@
+{#
+{% extends '/templates/wiki.jinja2' %}
+#}
+
+{#
+This template renders using the tags understood by Houdini's tooltip parser.
+#}
+
+{% macro title_rule(this) %}
+    <h1>{{ render(this.text) }}</h1>
+{% endmacro %}
+
+{% macro section_rule(this) %}
+    <h2>{{ render(this.text) }}</h2>
+    {{ render(this.body) }}
+{% endmacro %}
+
+{% macro h_rule(this) %}
+    <h3>{{ render(this.text) }}</h3>
+    {{ render(this.body) }}
+{% endmacro %}
+
+{% macro summary_rule(this) %}
+    <p><i>{{ render(this.text) }}</i></p>
+{% endmacro %}
+
+{% macro para_rule(this) %}
+    <p>{{ render(this.text) }}</p>
+{% endmacro %}
+
+{% macro bullet_group_rule(this) %}
+    <ul>
+        {{ render(this.body) }}
+    </ul>
+{% endmacro %}
+{% macro bullet_rule(this) %}
+    <li>
+        <p>{{ render(this.text) }}</p>
+        {{ render(this.body) }}
+    </li>
+{% endmacro %}
+
+{% macro ord_group_rule(this) %}
+    <ol>
+        {{ render(this.body) }}
+    </ol>
+{% endmacro %}
+{% macro ord_rule(this) %}
+    <li>
+        <p>{{ render(this.text) }}</p>
+        {{ render(this.body) }}
+    </li>
+{% endmacro %}
+
+{% macro pre_rule(this) %}
+    <pre>{{ string(this.text) }}</pre>
+{% endmacro %}
+
+{% macro strong_rule(this) %}
+    <b>{{ render(this.text) }}</b>
+{% endmacro %}
+
+{% macro em_rule(this) %}
+    <i>{{ render(this.text) }}</i>
+{% endmacro %}
+
+{% macro code_rule(this) %}
+    <tt>{{ render(this.text) }}</tt>
+{% endmacro %}
+
+{% macro dt_group_rule(this) %}
+    <dl>
+    {{ render(this.body) }}
+    </dl>
+{% endmacro %}
+
+{% macro dt_rule(this) %}
+    <dt>{{ render(this.text) }}</dt>
+    <dd>{{- render(this.body) -}}</dd>
+{% endmacro %}

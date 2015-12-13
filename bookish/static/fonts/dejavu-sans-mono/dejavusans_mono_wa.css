@@ -1,0 +1,25 @@
+@font-face {
+    font-family: 'Deja Vu Sans Mono_400_normal';
+    font-style: normal;
+    font-weight: 400;
+    src: url('DejaVuSansMono.ttf');
+}
+@font-face {
+    font-family: 'Deja Vu Sans Mono_400_italic';
+    font-style: italic;
+    font-weight: 400;
+    src: url('DejaVuSansMono-Oblique.ttf');
+}
+
+@font-face {
+    font-family: 'Deja Vu Sans Mono_700_normal';
+    font-style: normal;
+    font-weight: 700;
+    src: url('DejaVuSansMono-Bold.ttf');
+}
+@font-face {
+    font-family: 'Deja Vu Sans Mono_700_italic';
+    font-style: italic;
+    font-weight: 700;
+    src: url('DejaVuSansMono-BoldOblique.ttf');
+}

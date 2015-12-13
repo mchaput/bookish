@@ -1,0 +1,30 @@
+// Workaround switch
+
+$font-workaround: false;
+
+// Import different files based on workaround switch
+@if $font-workaround {
+    @import url("../fonts/open-sans/open_sans_wa.css");
+    @import url("../fonts/dejavu-sans-mono/dejavusans_mono_wa.css");
+} @else {
+    @import url("../fonts/open-sans/open_sans.css");
+    @import url("../fonts/dejavu-sans-mono/dejavusans_mono.css");
+}
+@import url("../fonts/font-awesome.min.css");
+
+// Variables
+
+$font-family: "Open Sans", sans-serif;
+$font-size: 14px;
+$monospace-family: "Deja Vu Sans Mono", monospace;
+
+// Mixins
+
+@mixin webfont($face, $weight) {
+    @if $font-workaround {
+        font-family: #{$face}_#{$weight};
+    } @else {
+        font-family: $face;
+        font-weight: $weight;
+    }
+}

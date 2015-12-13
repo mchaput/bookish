@@ -1,0 +1,116 @@
+comment = "#" (~"\n" r.Any)*
+hspace = " " | "\t" | comment
+vspace =  "\r\n" | "\r" | "\n"
+ws = (hspace | vspace | comment)*
+
+emptyline = hspace* vspace
+indent = emptyline* hspace+
+
+digit = [0123456789]
+hexdigit = [0123456789ABCDEFabcdef]
+digits = digit+
+ascii_letters = [ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz]
+
+number = ws ("-" barenum:x  -> -x
+             | barenum:x -> x
+             )
+barenum = "0" ("x"|"X") <hexdigit+>:hs -> int(hs, 16)
+               | <digit+>:ds -> int(ds)
+
+escchar = "\\" ("n" -> "\n"
+                | "r" -> "\r"
+                | "t" -> "\t"
+                | "b" -> "\b"
+                | "f" -> "\f"
+                | "x" <hexdigit hexdigit>:d -> compat.unichr(int(d, 16))
+                | r.Any:a -> a
+                )
+
+string = ws (
+          '"' (escchar | ~'"' r.Any)+:s '"' -> s
+          | "'" (escchar | ~"'" r.Any)+:s "'" -> s
+          ):s -> String("".join(s))
+
+category = ws "[" (escchar | ~"]" r.Any)*:xs "]" -> In(set(xs))
+
+name = <("_" | ascii_letters) ([_] | ascii_letters | digits)*>
+
+args = ("(" r.appargs:aa ")" -> aa
+        | -> [])
+
+application = indent? name:rule args:args -> Call(rule, args)
+
+application2 = indent? name:mod "." name:rule args:args
+               -> Call2(mod, rule, args)
+
+rulevalue = ws "->" ws r.valexpr:code -> Do("".join(code))
+
+action = ws "!(" r.actionexpr:code ")" -> Do(code)
+
+predicate = ws "?(" r.actionexpr:code ")" -> If(code)
+
+mixed = ws "@(" expr1:until (ws "," expr1:e -> e
+                             | -> None
+                             ):aim ")" -> Mixed(until, aim)
+
+failif = ws ".(" expr1:f ")" -> FailIf(f)
+
+brackets = ws "(" expr:e ws ")" -> e
+take = ws "<" expr:e ws ">" -> Take(e)
+
+regex = ws "/" (~"/" (("\\/" -> "/") | r.Any))*:pattern "/" -> Regex("".join(pattern))
+
+expr1 = application2
+        | application
+        | rulevalue
+        | predicate
+        | action
+        | mixed
+        | failif
+        | number
+        | string
+        | category
+        | brackets
+        | take
+        | regex
+
+expr2 = (ws "~" ("~" expr2:e -> Peek(e)
+                 | expr2:e -> Not(e)
+                 )
+        | ws "^" expr1:e -> LookBehind(e)
+        | expr1
+        )
+
+repeattimes = "{" barenum:mn
+              ("," (barenum | -> None) | -> mn):mx
+              "}" -> (mn, mx)
+
+expr3a = expr2:e2 ("*" -> Star(e2)
+                   | "+" -> Plus(e2)
+                   | "?" -> Opt(e2)
+                   | repeattimes:ts -> Repeat(e2, *ts)
+                   | -> e2
+                   )
+expr3 = expr3a:r (":" name:n -> Bind(n, r)
+                  | -> r
+                  )
+
+expr4 = expr3+:e3s -> e3s[0] if len(e3s) == 1 else Seq(e3s)
+
+expr = expr4:e4 (ws "|" expr4)*:e4s -> Or([e4] + e4s) if e4s else e4
+
+ruleend = (hspace* emptyline+) | r.streamend
+
+rule = ws r.linestart
+       name:n args:arglist ws
+       ("|=" -> True
+        | "=" -> False
+        ):add
+       expr:e ruleend
+       -> r.make_rule(n, e, arglist, add)
+
+imp = ws r.linestart
+      "import " <name ("." name)*>:mod " as " name:n "\n"
+      -> add_import(mod, n)
+
+grammar = imp* rule+:rs ws r.streamend -> make_grammar(rs)

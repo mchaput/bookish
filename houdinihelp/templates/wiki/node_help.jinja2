@@ -1,0 +1,90 @@
+= Asset Name =
+
+#type: node
+#context: {{ context }}
+#internal: {{ name }}
+{% if namespace %}#namespace: {{ namespace }}{% endif %}
+{% if version %}#version: {{ version }}{% endif %}
+#icon: opdef:{{ table }}/{{ internal }}?icon.svg
+#tags: comma, separated, list
+
+"""One line summary of asset's function and purpose."""
+
+== Overview ==
+
+Full description here. You can use wiki markup for `computer text`, *bold*, and _italics_.
+
+== Tips ==
+
+You can make a bullet list using `*`:
+
+* First tip.
+
+    Indent a paragraph or another list to make it part of the bullet above.
+
+* Second tip.
+
+Make a numbered list using `#`:
+
+# Do this.
+
+# Then do this.
+
+You can [link to other nodes|Node:sop/copy], [Vex functions|Vex:printf], [web pages|http://sidefx.com/], and even to [Wikipedia articles|Wp:Harry_Houdini].
+
+[Image:/images/dynamics/clustering1.png]
+
+The `#icon:` property can refer to a file in the Houdini path, but embedding it is more elegant. Note that you can use PNG, SVG, and JPG icons. Look at the `Extra Files` tab to see how to embed.
+
+NOTE:
+    You can use `NOTE:`, `TIP:`, and `WARNING:` to set off blocks.
+
+See [the full wiki markup documentation|/help/wiki] for more information.
+
+@parameters
+
+::Parameter label:
+    Description of the parameter.
+
+== Tab name ==
+
+Use headings to match the tab structure of the asset's parameters.
+
+::Parameter label:
+    Description of the parameter.
+
+=== Sub-tab name ===
+
+The number of `=` characters controls the heading level.
+
+::Parameter label:
+    #id: internalname
+
+    If you don't specify the internal name of a parameter using `#id:`, the help system will try to look it up by its label.
+
+You can include parameters from other nodes, if they have `#id:` properties.
+
+[Include:/nodes/sop/edit#group]
+
+@locals
+
+PT:
+   Point number.
+
+NPT:
+   Total number of points.
+
+CEX, CEY, CEZ:
+   Centroid of the input geometry.
+
+TX, TY, TZ:
+   Point position.
+
+PSCALE:
+   Particle Scale
+
+@related
+
+- [Node:sop/vertex]
+- [Node:sop/primitive]
+- [Node:sop/xform]

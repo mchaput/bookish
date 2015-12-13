@@ -1,0 +1,35 @@
+.CodeMirror {
+    font-family: "Deja Vu Sans Mono", monospace;
+    font-size: 13px;
+    width: 100%;
+}
+.CodeMirror pre {
+    line-height: 1.286em;
+}
+.CodeMirror-linenumber {
+    font-size: 0.857em;
+    margin-top: 0.0714em;
+}
+
+#main {
+    padding: 0;
+}
+
+#editpane {
+    position: absolute;
+    left: 0;
+    width: 50%;
+}
+
+#previewpane {
+    position: absolute;
+    left: 50%;
+    width: 50%;
+}
+#preview {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    border: none;
+    overflow: auto;
+}

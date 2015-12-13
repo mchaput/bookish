@@ -1,0 +1,14 @@
+{% extends "/templates/error_base.jinja2" %}
+
+{% block errno %}404{% endblock %}
+
+{% block title %}Page not found{% endblock %}
+
+{% block errors %}
+    <p>The server couldn't find the page <code>{{ path }}</code>.</p>
+    {% if editable %}
+    <p>
+        <a href="/_edit{{ path }}" class="btn btn-default" role="button">Create page</a>
+    </p>
+    {% endif %}
+{% endblock %}

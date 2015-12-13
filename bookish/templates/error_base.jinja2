@@ -1,0 +1,20 @@
+{% extends "/templates/page_base.jinja2" %}
+
+{% block bodyclass %}error{% endblock %}
+
+{% block styles %}
+    {{ super() }}
+    <style>
+    body {
+        padding: 2em;
+    }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <h1>
+        <span class="errno">{% block errno %}{% endblock %}</span>
+        {% block title %}{% endblock %}
+    </h1>
+    {% block errors %}{% endblock %}
+{% endblock %}

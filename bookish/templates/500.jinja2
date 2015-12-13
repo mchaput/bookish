@@ -1,0 +1,10 @@
+{% extends "/templates/error_base.jinja2" %}
+
+{% block errno %}500{% endblock %}
+
+{% block title %}Internal server error{% endblock %}
+
+{% block errors %}
+    <p>The page at <code>{{ path }}</code> produced an error:</p>
+    <pre class="codehilite">{{ trace }}</pre>
+{% endblock %}

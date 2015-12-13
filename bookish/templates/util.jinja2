@@ -1,0 +1,111 @@
+{% macro page_desc(path, docroot) -%}
+    {%- set attrs = docroot.attrs -%}
+    {{- type_desc(path, attrs.type, attrs.context) -}}
+{%- endmacro %}
+
+{% macro type_desc(path, doctype, context) -%}
+    {%- if path.startswith("/shelf/") -%}shelf tool
+    {%- elif doctype == "node" -%}
+        {%- if context == "sop" %}geometry node
+        {%- elif context == "obj" %}object node
+        {%- elif context == "dop" %}dynamics node
+        {%- elif context == "cop2" %}compositing node
+        {%- elif context == "vop" %}VOP node
+        {%- elif context == "chop" %}channel node
+        {%- elif context == "shop" %}shader node
+        {%- elif context == "out" %}render node
+        {%- elif context == "vex" %}VOP network
+        {%- endif -%}
+    {%- elif doctype == "hscript" %}HScript command
+    {%- elif doctype == "expression" %}expression function
+    {%- elif doctype == "vex" %}VEX function
+    {%- elif doctype == "vexcontext" %}VEX context
+    {%- elif doctype == "visualizer" %}visualizer
+    {%- elif doctype == "hommodule" %}HOM module
+    {%- elif doctype == "hompackage" %}HOM package
+    {%- elif doctype == "homclass" %}HOM class
+    {%- elif doctype == "homfunction" %}HOM function
+    {%- elif doctype == "property" %}render property
+    {%- elif doctype == "example" %}example file
+    {%- endif -%}
+{%- endmacro %}
+
+{% macro hit_desc(path, doctype, context) %}
+    {%- if path.startswith("/anim/") %}animation
+    {%- elif path.startswith("/assets/") %}assets
+    {%- elif path.startswith("/basics/") %}basics
+    {%- elif path.startswith("/character/") %}character animation
+    {%- elif path.startswith("/cloth/") %}cloth
+    {%- elif path.startswith("/composite/") %}compositing
+    {%- elif path.startswith("/copy/") %}copying and instancing
+    {%- elif path.startswith("/crowds/") %}crowds
+    {%- elif path.startswith("/dopparticles/") %}particles
+    {%- elif path.startswith("/dyno/") %}dynamics
+    {%- elif path.startswith("/fur/") %}fur
+    {%- elif path.startswith("/geo/") %}geometry
+    {%- elif path.startswith("/help/") %}using help
+    {%- elif path.startswith("/hom/") %}HOM
+    {%- elif path.startswith("/io/") %}importing and exporting
+    {%- elif path.startswith("/model/") %}geometry
+    {%- elif path.startswith("/mplay/") %}Mplay
+    {%- elif path.startswith("/network/") %}using the network
+    {%- elif path.startswith("/ref/") %}reference
+    {%- elif path.startswith("/render/") %}rendering
+    {%- elif path.startswith("/shade/") %}shading
+    {%- elif path.startswith("/shading/") %}shading
+    {%- elif path.startswith("/examples/") %}example file
+    {%- else  %}{{ type_desc(path, doctype, context) }}
+    {%- endif -%}
+{%- endmacro %}
+
+{% macro category_desc(cat) %}
+    {%- if cat == "_" %}User guide
+    {%- elif cat == "tool" %}Shelf tools
+    {%- elif cat == "example" %}Example files
+    {%- elif cat == "node/sop" %}Geometry nodes
+    {%- elif cat == "node/obj" %}Object nodes
+    {%- elif cat == "node/dop" %}Dynamics nodes
+    {%- elif cat == "node/cop2" %}Compositing nodes
+    {%- elif cat == "node/vop" %}VOP nodes
+    {%- elif cat == "node/chop" %}Channel nodes
+    {%- elif cat == "node/shop" %}Shader nodes
+    {%- elif cat == "node/out" %}Render nodes
+    {%- elif cat == "node/vex" %}VOP networks
+    {%- elif cat == "hscript" %}HScript commands
+    {%- elif cat == "expression" %}Expression functions
+    {%- elif cat == "vex" %}VEX functions
+    {%- elif cat == "vexcontext" %}VEX contexts
+    {%- elif cat == "visualizer" %}Visualizers
+    {%- elif cat == "hommodule" %}HOM modules
+    {%- elif cat == "hompackage" %}HOM packages
+    {%- elif cat == "homclass" %}HOM classes
+    {%- elif cat == "hommethod" %}HOM methods
+    {%- elif cat == "homfunction" %}HOM functions
+    {%- elif cat == "example" %}Example files
+    {%- elif cat == "property" %}Render properties
+    {%- elif cat == "gallery/shop" %}Gallery material
+    {%- elif cat == "utility" %}Utilities
+    {%- elif cat == "referece" %}Reference
+    {%- else %}({{ cat }})
+    {%- endif -%}
+{% endmacro %}
+
+{% macro print_example_button(path, launch=True) %}
+    {%- set label = "Launch" if launch else "Load" -%}
+
+    <button class="load-example {% if launch %}secondary{% endif %}" data-path="{{ path }}" data-launch="{{ launch }}">
+        {{- label -}}
+    </button>
+{% endmacro %}
+
+{% macro print_hit_box(rel, hit, show_icon=True) %}
+    <a href="{{ rel(hit.path) }}" class="linkbox {{ hit.type }} {% if show_icon %}withicon{% endif %}">
+        {%- if show_icon and hit.icon -%}
+        <img src="{{ rel("/icons/" + hit.icon + ".svg") }}" />
+        {%- endif -%}
+        {{ hit.title }}
+        {% if hit.type %}
+            <small>{{ type_desc(hit.path, hit.type, hit.context) }}</small>
+        {% endif %}
+    </a>
+{% endmacro %}

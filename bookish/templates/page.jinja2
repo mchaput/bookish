@@ -1,0 +1,27 @@
+{% extends "/templates/structure.jinja2" %}
+
+{% block title %}{{ string(docroot.title) }}{% endblock %}
+
+{% block toc %}
+    <div id="toc">
+        <div class="side-toc">
+            {% if docroot.parents %}
+                {{ render_styles(build_toc(docroot, basepath, maxdepth=2)) }}
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block rightbar %}
+    {% if editable %}
+    <a class="navbutton fa fa-pencil" href="/_edit{{ paths.basepath(path) }}"></a>
+    {% endif %}
+{% endblock %}
+
+{% block bodyclass -%}
+    {{ docroot.attrs.display }}
+{%- endblock %}
+
+{% block content %}
+    {{ render_styles(docroot) }}
+{% endblock %}

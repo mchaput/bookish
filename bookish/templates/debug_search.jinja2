@@ -1,0 +1,38 @@
+<html>
+<head>
+    <title>Searchable view of {{ path }}</title>
+    <style>
+        body {
+            background-color: #CCC;
+            padding: 8px;
+        }
+        dt {font-weight: bold; font-family: monospace;}
+        .doc {
+            border: 1px solid #CCC; background-color: white;
+            padding: 4px 8px 4px 8px;
+            margin-bottom: 8px;
+        }
+        .title-dd {
+            font-size: large;
+            font-weight: bold;
+        }
+        .content-dd {
+            font-size: 10px;
+        }
+    </style>
+</head>
+<body>
+{% for doc in docs %}
+    <div class="doc">
+        <dl>
+            {% for key, value in doc | dictsort %}
+                {% if value %}
+                <dt class="{{ key }}-dt">{{ key }}</dt>
+                <dd class="{{ key }}-dd">{{ value | escape }}</dd>
+                {% endif %}
+            {% endfor %}
+        </dl>
+    </div>
+{% endfor %}
+</body>
+</html>

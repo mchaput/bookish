@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <title>{{ path }}</title>
+    </head>
+    <body>
+        <h1>{{ path }}</h1>
+        <table>
+            <tr><th>Name</th><th>Size</th></tr>
+            {% for f in files %}
+                <tr>
+                    <td><a href="{{ f.link }}">{{ f.name | escape }}</a></td>
+                    <td>
+                        {% if f.isdir %}(dir)
+                        {% else %}{{ f.size | filesizeformat }}
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </body>
+</html>

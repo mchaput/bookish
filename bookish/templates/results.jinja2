@@ -1,0 +1,62 @@
+{% import "/templates/util.jinja2" as util %}
+
+{% macro print_hit(hit) %}
+    <li class="hit {{ hit.status }}">
+        <a class="label" href="{{ hit.path }}">{{ hit.title | escape }}</a>
+        <small class="desc">{{ util.hit_desc(hit.path, hit.type, hit.context) }}</small>
+    </li>
+{% endmacro %}
+
+{% macro print_hits(catname, hits, count) %}
+    <ol class="hits" data-name="{{ catname }}">
+        {% for hit in hits %}
+            {{ print_hit(hit) }}
+        {% endfor %}
+        {% if hits | length < count %}
+            <li class="more hit">
+                <i class="fa fa-plus-circle"></i>
+                {{ count - hits | length }}
+                more in {{ util.category_desc(catname) }}
+            </li>
+        {% endif %}
+    </ol>
+{% endmacro %}
+
+<div class="results-inner" data-sent="{{ sent }}">
+    {% if length %}
+        <p class="stats">{{ length }} hits, {{ "%0.1f" | format(runtime) }}ms</p>
+
+        {% if category %}
+            <ol class="hits">
+                <li class="hit more">
+                    <i class="fa fa-plus-circle"></i>
+                    Show all results
+                </li>
+            </ol>
+        {% elif best and best.scored_length() %}
+            <section class="best search-category">
+                {{ print_hits(None, best, best.scored_length()) }}
+            </section>
+        {% endif %}
+
+        {% for catname, hits, catcount in categories %}
+            <section class="search-category">
+                <h2 class="category">
+                    {{ util.category_desc(catname) }}
+                    <small>{{ catcount }}</small>
+                </h2>
+                {{ print_hits(catname, hits, catcount) }}
+            </section>
+        {% endfor %}
+
+    {% elif not qstring %}
+        <div class="search-tip message">
+        Type search terms.
+        </div>
+
+    {% else %}
+        <div class="message">
+        No results for <span class="qstring">{{ qstring | escape }}</span>
+        </div>
+    {% endif %}
+</div>

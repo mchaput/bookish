@@ -1,0 +1,6 @@
+Flask
+Flask-Script
+Pygments
+Whoosh
+libsass
+nose

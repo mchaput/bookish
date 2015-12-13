@@ -1,0 +1,44 @@
+{% extends "/templates/page_base.jinja2" %}
+
+{% block body %}
+    <header>
+        {% block navbar %}
+            <nav role="navigation">
+                <div class="left">
+                    {% block brand %}{% endblock %}
+                    <a id="menubtn" class="navbutton fa fa-list"></a>
+                    {% block leftbar %}{% endblock %}
+                </div>
+                <div class="right">
+                    {% block rightbar %}{% endblock %}
+                    {% block searchbox %}
+                    <div id="search-holder" class="navitem">
+                        <span class="search-outer">
+                            <input id="q" name="q" class="search" placeholder="Search" value="{{ q | escape }}" autocomplete="off">
+                        </span>
+                    </div>
+                    {% endblock %}
+                </div>
+            </nav>
+        {% endblock %}
+    </header>
+
+    {% block below %}
+        <div id="sidebar" class="closed">
+            <div id="split-bar"></div>
+            <div id="sidebar-content">
+                {% block toc %}
+                {% endblock %}
+            </div>
+        </div>
+
+        <div id="main" class="under">
+            <div id="content" class="sizing">
+            {% block content %}
+            {% endblock %}
+            </div>
+            {% block footer %}
+            {% endblock %}
+        </div>
+    {% endblock %}
+{% endblock %}

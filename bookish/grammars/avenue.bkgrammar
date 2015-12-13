@@ -1,0 +1,43 @@
+import bookish.avenue.patterns as pt
+
+ws = (" " | "\t")*
+ascii_letter = [ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz]
+digit = [0123456789]
+barenum = <digit+>:ds -> int(ds)
+number = ws ("-" barenum:x -> -x
+             | barenum:x -> x
+             )
+name = <("_" | ascii_letter) ("_" | ascii_letter | digit)*>
+string = '"' <(~'"' Any)+>:s '"' -> s
+         | "'" <(~"'" Any)+>:s "'" -> s
+literal = string | number
+
+index = number:i (ws ":" ws number)?:j -> pt.Slice(i, j[0] if j else None)
+lookup = ws (string | name):s -> pt.Lookup(s)
+regex = ws "/" <(~"/" Any)+>:r "/" -> pt.Regex(r)
+star = ws "*" -> Star()
+
+test = ws "@" name:n ws
+       ("==" | "=" | "<=" | ">=" | "<" | ">" | "!=" | "=~"):op
+       ws literal:v
+       -> pt.Comparison(n, op, v)
+
+predicate = ws "?(" actionexpr:src ")" -> pt.Predicate(src)
+action = ws "{" actionexpr:src "}" -> pt.Action(src)
+root = ws "$" -> Root()
+
+args = expr:e (ws "," expr)*:es -> [e] + es
+       | -> []
+application = name:n "(" args:args ")" -> pt.App(n, args)
+
+brackets = ws "(" expr:e ")" -> e
+filter = "[" expr:e "]" -> pt.Filter(e)
+
+expr1 = root | index | application | lookup | regex | star
+        | test | predicate | action | brackets | filter
+expr2 = expr1:e1 ws ".." expr:e -> pt.Ancestor(e1, e)
+        | expr1:e1 ws "." expr:e -> pt.Child(e1, e)
+        | expr1
+expr = expr2:e2 (ws "|" expr2)*:e2s -> pt.Union([e2] + e2s) if e2s else e2
+
+grammar = expr:e ws streamend -> e

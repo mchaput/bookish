@@ -1,0 +1,26 @@
+{% extends "/templates/structure.jinja2" %}
+{% import "/templates/util.jinja2" as util %}
+
+{% block content %}
+    <h2>Tags: {{ tag }}</h2>
+
+    <p class="tagcloud">
+        {% for t, div in tagcloud %}
+            <a href="/_tag/{{ t | escape }}"
+                class="tag {{ "here" if t == tag else "" }}"
+                style="font-size: {{ 12 + div }}px"
+            >
+                {{ t }}
+            </a>
+        {% endfor %}
+    </p>
+
+    <ol>
+        {% for doc in docs %}
+            <li>
+                <a href="{{ doc.path }}">{{ doc.title | escape }}</a>
+                <small>{{ util.type_desc(doc.path, doc.type, doc.context) }}</small>
+            </li>
+        {% endfor %}
+    </ol>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "/templates/base.jinja2" %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ rel("/static/scss/page.css") }}">
+    <link rel="stylesheet" href="{{ rel(config.PYGMENTS_CSS | d("/static/css/pygments/brightcolor.css")) }}">
+{% endblock %}
+
+{% block scripts %}
+    <script type="text/javascript" src="{{ rel("/static/js/flot/jquery.flot.min.js") }}"></script>
+    <script type="text/javascript" src="{{ rel("/static/js/flot/jquery.flot.resize.min.js") }}"></script>
+    <script type="text/javascript" src="{{ rel("/static/js/js.cookie.js") }}"></script>
+    <script type="text/javascript" src="{{ rel("/static/js/search.js") }}"></script>
+    <script type="text/javascript" src="{{ rel("/static/js/page.js") }}"></script>
+{% endblock %}
